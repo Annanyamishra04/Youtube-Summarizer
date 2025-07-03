@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Transcript Summarizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+            color: #fff;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 20px;
+            color: #fff;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #ccc;
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            color: #fff;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        input[type="text"] {
+            width: 95%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+
+        button[type="submit"] {
+            background-color: #1a73e8;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0f5dc6;
+        }
+
+       
+    </style>
+</head>
+<body>
+
+<header>
+	<h1>YouTube Transcript Summarizer</h1>
+    <p>Summarize YouTube video transcripts with ease!</p>
+</header>
+
+<section class="main-content">
+	<div class="container">
+		<form action="/process" method="post">
+			<label for="video_url">Enter YouTube Video URL:</label>
+			<input type="text" id="video_url" name="video_url" placeholder="https://www.youtube.com/watch?v=...">
+			<button type="submit" name="submit">Summarize</button>
+		</form>
+	</div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2024 YouTube Transcript Summarizer. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

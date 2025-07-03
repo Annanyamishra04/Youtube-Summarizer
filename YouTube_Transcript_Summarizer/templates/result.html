@@ -1,0 +1,131 @@
+<!-- templates/result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Transcript Summarizer Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='copymessage.css') }}">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+            color: #fff;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2.glow-text {
+            font-size: 2.5em;
+            color: transparent;
+            -webkit-text-stroke: 1px #fff;
+            background-image: linear-gradient(#0ef, #0ef);
+            background-repeat: no-repeat;
+            -webkit-background-clip: text;
+            background-position: -600px 0;
+            transition: background-position 1s, text-shadow 1s;
+            transition-delay: 0.6s, 0s;
+            text-align: center;
+        }
+
+        h2.glow-text:hover {
+            background-position: 0 0;
+            text-shadow: 0 0 10px #0ef, 0 0 20px #0ef, 0 0 40px #0ef;
+        }
+
+        .output-container {
+            width: 90%;
+            max-width: 1000px;
+            margin-bottom: 40px;
+        }
+
+        .scroll-box {
+            background-color: #1c2a3a;
+            border: 1px solid #555;
+            border-radius: 10px;
+            padding: 20px;
+            max-height: 350px;
+            overflow-y: auto;
+            font-size: 1.3em;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            text-align: center;
+        }
+
+        .copy-button {
+            margin-top: 15px;
+            background-color: #1a73e8;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background-color: #1666c1;
+        }
+
+        .copy-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .copy-message.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="output-container">
+        <h2 class="glow-text">Transcript</h2>
+        <div class="scroll-box" id="transcript">{{ transcript }}</div>
+        <button class="copy-button" onclick="copyToClipboard('transcript')">Copy Transcript</button>
+    </div>
+
+    <div class="output-container">
+        <h2 class="glow-text">Summary</h2>
+        <div class="scroll-box" id="summary">{{ summary }}</div>
+        <button class="copy-button" onclick="copyToClipboard('summary')">Copy Summary</button>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const range = document.createRange();
+            range.selectNode(element);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand("copy");
+            selection.removeAllRanges();
+
+            const copyMessage = document.createElement("div");
+            copyMessage.className = "copy-message show";
+            copyMessage.textContent = "Copied!";
+            document.body.appendChild(copyMessage);
+
+            setTimeout(() => {
+                copyMessage.remove();
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
